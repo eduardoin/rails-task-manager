@@ -11,4 +11,6 @@
   <% end %>
 </div>
 
+<%= link_to 'Edit', edit_task_path(@task) %>
+<%= link_to 'Delete', task_path(@task), method: :delete %>
 <%= link_to 'Back to List', tasks_path %>

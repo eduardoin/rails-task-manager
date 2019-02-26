@@ -6,10 +6,14 @@ class TasksController < ApplicationController
 
   def new
     # ------------------------------> GET /restaurants/new
+    @task = Task.new
   end
 
   def create
     # ------------------------------> POST /restaurants
+    @task = Task.new(task_params)
+    @task.save
+    redirect_to tasks_path
   end
 
   def show
@@ -25,12 +29,20 @@ class TasksController < ApplicationController
   def update
     # ------------------------------> PATCH /restaurants/:id
     @task = Task.find(params[:id])
-    @task.save
+    @task.update(task_params)
+    redirect_to tasks_path
   end
 
   def destroy
     # ------------------------------> DELETE /restaurants/:id
     @task = Task.find(params[:id])
     @task.destroy
+    redirect_to tasks_path
+  end
+
+  private
+
+  def task_params
+    params.require(:task).permit(:title, :details, :completed)
   end
 end
